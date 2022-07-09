@@ -1,0 +1,7 @@
+# general
+.vscode
+notes.txt
+
+# ansible related
+files/ssh_keys/
+defaults/main.yml

@@ -1,0 +1,9 @@
+---
+- ansible.builtin.import_tasks: update-n-upgrade.yml
+- ansible.builtin.import_tasks: install-packages.yml
+- ansible.builtin.import_tasks: set-hostname.yml
+- ansible.builtin.import_tasks: set-keyboard.yml
+- ansible.builtin.import_tasks: create-user.yml
+- ansible.builtin.import_tasks: disable-password-authentication.yml
+- ansible.builtin.import_tasks: set-static-ip.yml
+...

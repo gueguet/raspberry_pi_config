@@ -1,0 +1,43 @@
+---
+- name: Create a new user on the pi with admin access
+  ansible.builtin.user:
+    name: "{{ rpi_new_user }}"
+    password: "{{ rpi_new_user_passwd | string | password_hash('sha512') }}"
+    shell: /bin/bash
+    createhome: true
+    groups:
+      - sudo, adm
+    append: true
+
+- name: Push common files for the new user
+  ansible.builtin.copy:
+    src: ./
+    dest: "/home/{{ rpi_new_user }}"
+    owner: "{{ rpi_new_user }}"
+    group: "{{ rpi_new_user }}"
+    mode: 0644
+
+- name: "Check if a ssh key pair is already provided"
+  ansible.builtin.stat:
+    path: ssh_keys/rpi_keys_{{ rpi_new_user }}.pub
+  become: false
+  delegate_to: localhost
+  register: ssh_keys_stat
+
+- name: Create ssh keys (localhost)
+  community.crypto.openssh_keypair:
+    path: "ssh_keys/rpi_keys_{{ rpi_new_user }}"
+    type: rsa
+    size: 4096
+    state: present
+  become: false
+  delegate_to: localhost
+  when: not ssh_keys_stat.stat.exists
+
+- name: Deploy SSH Key  # nested jinja, how to solve this yaml lint warning ?
+  ansible.posix.authorized_key:
+    user: "{{ rpi_new_user }}"
+    key: "{{ lookup('file', 'ssh_keys/rpi_keys_{{ rpi_new_user }}.pub') }}"
+    state: present
+    comment: "pubkey-{{ rpi_new_user }}"
+...

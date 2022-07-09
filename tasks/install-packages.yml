@@ -1,0 +1,7 @@
+---
+- name: "Install some packages"
+  ansible.builtin.apt:
+    name: "{{ rpi_packages }}"
+    state: present
+    update_cache: true
+...

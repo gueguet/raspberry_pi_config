@@ -1,0 +1,7 @@
+---
+# this task will fail after the first execution of the roles since SSH will be disabled for pi user
+- name: Reboot Pi
+  ansible.builtin.reboot:
+    reboot_timeout: 60
+  ignore_errors: true
+...

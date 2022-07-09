@@ -1,0 +1,14 @@
+---
+- name: Configure static IPv4
+  ansible.builtin.lineinfile:
+    dest: /etc/dhcpcd.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - {regexp: "^interface eth[0-9]$", line: "interface {{ rpi_new_interface }}"}
+    - {regexp: "^static ip_address", line: "static ip_address={{ rpi_new_ip }}"}
+    - {regexp: "^static routers", line: "static routers={{ rpi_new_gateway }}"}
+    - {regexp: "^static domain_name_servers", line: "static domain_name_servers={{ rpi_new_dns_servers }}"}
+  notify: Reboot Pi
+...

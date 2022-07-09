@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Verdin-Pol Gaétan
+  namespace: gueguet
+  description: Role to configure / setup a new Rapsberry Pi
+  company: Devoteam Luxembourg
+  license: MIT
+
+  min_ansible_version: "2.1"
+
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+
+  galaxy_tags:
+    - raspberry
+    - rpi

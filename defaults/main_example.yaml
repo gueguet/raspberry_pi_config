@@ -1,0 +1,29 @@
+---
+# replace all this values and rename the file into : main.yaml 
+
+rpi_packages:
+  - git  # example
+  - vim  # example
+  - <package2>
+  - <package3>
+
+# set-hostname
+rpi_hostname: "<pi_hostname>"
+
+# set keyboard layout
+rpi_keyboard_layout: "<keyboard_layout"
+
+# create-user
+rpi_new_user: "<user_to_create>"
+rpi_common_files:
+  - .bashrc
+  - .vimrc
+  - <others>
+rpi_new_user_passwd: <encrypted_passwd>
+
+# setup a new static ipv4 address
+rpi_new_interface: "eth0"  # example
+rpi_new_ip: "192.168.1.10"
+rpi_new_gateway: "192.168.1.1"
+rpi_new_dns_servers: "8.8.8.8"
+...

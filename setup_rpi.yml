@@ -1,0 +1,7 @@
+---
+- name: Set up new pi
+  hosts: all
+  become: true
+  roles:
+    - setup_new_pi
+...
